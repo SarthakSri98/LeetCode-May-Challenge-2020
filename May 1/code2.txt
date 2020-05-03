@@ -1,0 +1,38 @@
+Link to Question : https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/534/week-1-may-1st-may-7th/3316/
+
+
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
+class Solution {
+public:
+    int firstBadVersion(long long int n) {
+
+        if(isBadVersion(n) && !isBadVersion(n-1))
+            return n;
+        long long int firstBadVersion = 1;
+        long long int a = binarySearch(1,n);
+        for(long long int i=a;i>0;i--)
+        {
+            if(!isBadVersion(i))
+            {
+                firstBadVersion = i+1;
+                break;
+            }
+        }
+        return firstBadVersion;
+        
+    }
+    
+    long long int binarySearch(long long int s,long long int e)
+    {
+        long long int mid = (s + e)/2;
+        if(!isBadVersion(mid))
+        {
+           return binarySearch(mid,e);
+        }
+        else
+        {
+            return mid;
+        }
+    }
+};
