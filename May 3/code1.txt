@@ -1,0 +1,30 @@
+Link to question : https://leetcode.com/problems/ransom-note/
+
+Solution :
+
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<int,int> m1;
+        bool res = true;
+        for(int i=0;i<magazine.size();i++)
+        {
+            m1[magazine[i]]++;
+        }
+        
+        for(int i=0;i<ransomNote.size();i++)
+        {
+            if(m1[ransomNote[i]])
+                m1[ransomNote[i]]--;
+            else
+            {
+                res = false;
+                break;
+            }
+                
+        }
+        
+        return res;
+        
+    }
+};
