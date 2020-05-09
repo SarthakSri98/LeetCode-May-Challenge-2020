@@ -1,0 +1,28 @@
+Link to question :https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3323/
+
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        
+        if(coordinates.size() == 2)
+            return true;
+        
+        int xDiff = coordinates[1][0] - coordinates[0][0];
+        int yDiff = coordinates[1][1] - coordinates[0][1];
+        int x0 = coordinates[0][0];
+        int y0 = coordinates[0][1];
+        int flag = 0;
+        
+        for(int i=2;i<coordinates.size() - 1;i++)
+        {
+            int x = coordinates[i][0];
+            int y = coordinates[i][1];
+            if(xDiff * y - xDiff * y0 != yDiff * x - yDiff * x0 )
+                break;
+            flag = 1;
+        }
+        
+        return flag;
+        
+    }
+};
