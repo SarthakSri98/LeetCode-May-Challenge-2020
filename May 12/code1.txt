@@ -1,0 +1,45 @@
+Link to question :https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3327/
+
+class Solution {
+public:
+    
+    int binSearch(vector<int>& nums,int start,int end)
+    {
+        int mid = start + (end - start)/2;
+        int res;
+        if(mid == 0 && nums[mid] != nums[mid + 1])
+            return nums[mid];
+        
+        if(nums[mid] == nums[mid+1])
+        {
+          if(mid%2==0)
+          {
+               res = binSearch(nums,mid,end);
+          }
+          else
+          {
+               res = binSearch(nums,start,mid-1);   
+          }
+        } 
+        else if(nums[mid] == nums[mid-1])
+        {
+          if(mid%2!=0)
+          {
+               res = binSearch(nums,mid+1,end);
+          }
+          else
+          {
+               res = binSearch(nums,start,mid);   
+          }
+        }
+        else if(nums[mid] != nums[mid-1] && nums[mid] != nums[mid+1])
+            return nums[mid];
+        return res;
+    }
+    
+    int singleNonDuplicate(vector<int>& nums) {
+        if(nums.size() == 1)
+            return nums[0];
+        return binSearch(nums,0,nums.size()-1);
+    }
+};
