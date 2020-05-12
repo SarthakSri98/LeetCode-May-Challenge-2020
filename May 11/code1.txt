@@ -1,0 +1,30 @@
+Link to question :https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/535/week-2-may-8th-may-14th/3326/
+
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+           
+           if(image[sr][sc] == newColor)
+           {
+               return image;
+           }
+
+           fillColor(image,sr,sc,image[sr][sc],newColor);
+
+           return image;
+    }
+        
+    void fillColor(vector<vector<int>>& image, int i, int j,int color, int newColor)
+    {
+        if(i<0 || j<0 || i>=image.size() || j>=image[0].size() || image[i][j] != color)
+            return ;
+        
+         image[i][j] = newColor;
+        
+        fillColor(image,i-1,j,color,newColor);
+        fillColor(image,i,j-1,color,newColor);
+        fillColor(image,i+1,j,color,newColor);
+        fillColor(image,i,j+1,color,newColor);
+        
+    }
+};
