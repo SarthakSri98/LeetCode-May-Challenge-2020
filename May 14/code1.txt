@@ -1,0 +1,54 @@
+Link to question : https://leetcode.com/problems/implement-trie-prefix-tree/
+class Trie {
+public:
+    struct trienode{
+        unordered_map<char, trienode*> hs;        
+        bool endofword;
+    };
+    trienode* root;
+    Trie() {
+        root = new trienode();
+    }
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        trienode *tmp = root;
+        for (auto s : word) {
+            if (tmp->hs.find(s)==tmp->hs.end()) 
+                tmp->hs[s] = new trienode();
+            tmp = tmp->hs[s];
+        }
+        tmp -> endofword = true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        trienode *tmp = root;
+        for (auto s:word) {
+            if (tmp->hs.find(s)==tmp->hs.end())
+                return false;
+            tmp = tmp->hs[s];
+        }
+        return (tmp->endofword);
+        
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        trienode *tmp = root;
+        for (auto s:prefix) {
+            if (tmp->hs.find(s)==tmp->hs.end())
+                return false;
+            tmp = tmp->hs[s];
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
