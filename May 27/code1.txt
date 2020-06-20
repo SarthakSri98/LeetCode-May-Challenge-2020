@@ -1,0 +1,35 @@
+Link to question : https://leetcode.com/problems/possible-bipartition/
+  
+class Solution {
+public:
+    
+    bool DFS(int cur, vector<int>& visited, vector<vector<int>>& adj){
+        
+        for(int j: adj[cur]){
+            if(visited[j] == 0){
+                visited[j] = -visited[cur];
+                if(!DFS(j, visited, adj))
+                    return false;
+            }
+            else if(visited[j] == visited[cur])
+              return false;
+        }
+        
+        return true;
+    }
+    bool possibleBipartition(int N, vector<vector<int>>& dislikes) {
+        vector<int> visited(N);
+        vector<vector<int>> adj(N);
+        
+        for(auto& dis: dislikes){
+            adj[dis[0]-1].push_back(dis[1]-1);
+            adj[dis[1]-1].push_back(dis[0]-1);
+        }
+        
+        for(int i = 0; i < N; ++ i){
+            if(visited[i] == 0 && (visited[i] = 1) && !DFS(i, visited, adj))
+              return false;
+        }
+        return true;
+    }
+};

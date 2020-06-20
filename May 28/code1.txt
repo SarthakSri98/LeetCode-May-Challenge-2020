@@ -1,0 +1,30 @@
+Link to question : https://leetcode.com/problems/counting-bits/  
+
+class Solution {
+public:
+    
+    int returnBitCount(int num)
+    {
+        int count = 0;
+        while(num)
+        {
+            num &= num - 1;
+            count++;
+        }
+        return count;
+    }
+    
+    vector<int> countBits(int num) {
+        vector<int> res;
+        res.push_back(0);
+        
+        for(int i=1;i<=num;i++)
+        {
+            int bitCount = returnBitCount(i);
+            res.push_back(bitCount);
+        }
+        
+        return res;
+        
+    }
+};
