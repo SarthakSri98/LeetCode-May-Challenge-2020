@@ -1,0 +1,27 @@
+Link to question : https://leetcode.com/problems/k-closest-points-to-origin/
+
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& pts, int k) {
+         vector<pair<float,int>> v; 
+        for(int i=0;i<pts.size();i++)
+        {
+            float s=float(sqrt(pts[i][0]*pts[i][0] + pts[i][1]*pts[i][1]));
+            v.push_back(make_pair(s,i));
+        }
+        sort(v.begin(),v.end());
+        vector<vector<int>> ans;
+        for(int i=0;i<v.size();i++)
+        {
+            if(k==0)
+                break;
+            else
+            {
+                ans.push_back(pts[v[i].second]);k--;
+            }
+                
+        }
+        v.clear();pts.clear();
+        return ans;
+    }
+};
