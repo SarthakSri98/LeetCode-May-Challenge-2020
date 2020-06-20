@@ -1,0 +1,30 @@
+Link to question :https://leetcode.com/problems/maximum-sum-circular-subarray/
+
+class Solution {
+public:
+    int maxSubarraySumCircular(vector<int>& A) {
+        int j = A.size();
+        int kadanesum=0,totalsum=0;
+        kadanesum = kadane(A);
+        for(int i=0;i<A.size() ; i++)
+        {
+            totalsum += A[i];
+            A[i] = -A[i];
+        }
+        totalsum +=kadane(A);
+        if( totalsum == 0 ) return kadanesum;
+        return totalsum>kadanesum?totalsum:kadanesum;
+ 
+    }
+    
+    int kadane(vector<int>& a)
+    {
+         int max_all=INT_MIN,max_now = 0;
+        for(int i=0;i<a.size() ; i++)
+        {
+                max_now = max(max_now + a[i],a[i]);
+                max_all = max( max_now, max_all);
+        }
+        return max_all;
+    }
+};
